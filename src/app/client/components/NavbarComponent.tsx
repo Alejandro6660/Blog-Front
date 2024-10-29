@@ -1,10 +1,17 @@
-import { navItemsGuest } from "@/app/constants/NavItems";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useState } from "react";
 import { NavListComponent } from "./ui/NavListComponent";
+import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const HOME = "Home";
 export const LOGIN = "Login";
@@ -13,10 +20,10 @@ export const ACOUNT = "Acount";
 
 export const NavbarComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const navItems = navItemsGuest;
+  const user: boolean = false;
   return (
     <header className="bg-sidebar border-b">
-      <nav className="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+      <nav className="max-w-full mx-auto  m-auto w-full md:w-[80%] px-4 md:px-1">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0">
@@ -26,7 +33,35 @@ export const NavbarComponent = () => {
           <div className="hidden md:block "></div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
-              <Button variant={"blue"}>Get Startet</Button>
+              {user ? (
+                <>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Avatar>
+                        <AvatarImage
+                          className="w-9 h-9 rounded-full"
+                          src="https://github.com/shadcn.png"
+                          alt="@shadcn"
+                        />
+                        <AvatarFallback>CN</AvatarFallback>
+                      </Avatar>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent side="bottom">
+                      <DropdownMenuLabel>Alejandro Fuentes</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </>
+              ) : (
+                <>
+                  <Button variant={"blue"}>
+                    <Link to={"/auth/register"}>Get Started</Link>
+                  </Button>
+                  <Button variant={"blueOutline"}>
+                    <Link to={"/auth/login"}>Login</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
           <div className="md:hidden ">
