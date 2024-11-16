@@ -13,6 +13,7 @@ import { useState } from "react";
 
 export const HomePage = () => {
   const [isPressed, setIsPressed] = useState(false);
+
   return (
     <LayoutClient>
       <Card>

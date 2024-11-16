@@ -1,9 +1,7 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { FormAuthLoginComponent } from "../../components/FormAuthLoginComponent";
-import { Toaster } from "@/components/ui/toaster";
+import { Button } from "@/components/ui/button";
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
   return (
     <>
       <main className="flex w-full px-3 py-3 h-screen">
@@ -20,7 +18,7 @@ export const LoginPage = () => {
               <span>Enter your email and a password to acces your account</span>
             </div>
             <div className="w-1/2 mb-20">
-              <FormAuthLoginComponent />
+              <div></div>
             </div>
           </div>
           <div>
@@ -32,7 +30,6 @@ export const LoginPage = () => {
             </div>
           </div>
         </section>
-        <Toaster />
       </main>
     </>
   );

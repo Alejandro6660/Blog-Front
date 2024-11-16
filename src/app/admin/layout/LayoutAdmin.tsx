@@ -3,12 +3,10 @@ import { NavComponentAdmin } from "../components/NavComponentAdmin";
 
 export const LayoutAdmin = ({ children }: { children: React.ReactNode }) => {
   return (
-    <SidebarProvider>
+    <SidebarProvider className="flex justify-between">
       <NavComponentAdmin />
-      <main>
-        <SidebarTrigger />
-        {children}
-      </main>
+      <SidebarTrigger />
+      <main className="py-2 flex-1 px-3">{children}</main>
     </SidebarProvider>
   );
 };

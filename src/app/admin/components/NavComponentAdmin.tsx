@@ -1,4 +1,5 @@
 import {
+  BookUser,
   ChartArea,
   ChevronUp,
   Home,
@@ -24,6 +25,10 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { AppDispatch } from "@/store/store";
+import { useDispatch } from "react-redux";
+import { startLogout } from "@/store/auth/thunks";
+import { Link } from "react-router-dom";
 
 const items = [
   {
@@ -33,8 +38,13 @@ const items = [
   },
   {
     title: "Users",
-    url: "#",
+    url: "/users",
     icon: Users,
+  },
+  {
+    title: "Rol Users",
+    url: "/rolUsers",
+    icon: BookUser,
   },
   {
     title: "Post",
@@ -49,6 +59,13 @@ const items = [
 ];
 
 export function NavComponentAdmin() {
+  const dispatch: AppDispatch = useDispatch();
+
+  const onLogoutBtn = () => {
+    dispatch(startLogout());
+  };
+  const getUserById = () => {};
+
   return (
     <Sidebar collapsible="icon" variant="floating">
       <SidebarHeader>
@@ -60,10 +77,10 @@ export function NavComponentAdmin() {
             {items.map((item) => (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild>
-                  <button>
+                  <Link to={item.url}>
                     <item.icon />
                     <span>{item.title}</span>
-                  </button>
+                  </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
@@ -85,11 +102,11 @@ export function NavComponentAdmin() {
                 side="top"
                 className="w-[--radix-popper-anchor-width]"
               >
-                <SidebarMenuButton>
+                <SidebarMenuButton onClick={() => getUserById()}>
                   <User2 />
                   <span>Account</span>
                 </SidebarMenuButton>
-                <SidebarMenuButton>
+                <SidebarMenuButton onClick={() => onLogoutBtn()}>
                   <LogOut />
                   <span>Sign out</span>
                 </SidebarMenuButton>

@@ -54,12 +54,12 @@ export const NavbarComponent = () => {
                 </>
               ) : (
                 <>
-                  <Button variant={"blue"}>
-                    <Link to={"/auth/register"}>Get Started</Link>
-                  </Button>
-                  <Button variant={"blueOutline"}>
-                    <Link to={"/auth/login"}>Login</Link>
-                  </Button>
+                  <Link to={"/auth/register"}>
+                    <Button variant={"blue"}>Get Started</Button>
+                  </Link>
+                  <Link to={"/auth/login"}>
+                    <Button variant={"blueOutline"}>Login</Button>
+                  </Link>
                 </>
               )}
             </div>
