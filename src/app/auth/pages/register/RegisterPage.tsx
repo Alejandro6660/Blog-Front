@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { FormAuthRegister } from "../../components/FormAuthRegisterComponent";
 
 export const RegisterPage = () => {
   return (
@@ -15,17 +16,19 @@ export const RegisterPage = () => {
           <div className="w-[80%] px-5 flex-1 flex flex-col items-center justify-center gap-4">
             <div className="flex flex-col items-center mb-7">
               <h1 className="font-bold text-4xl leading-tight">Welcome Back</h1>
-              <span>Enter your email and a password to acces your account</span>
+              <span>Create your account</span>
             </div>
-            <div className="w-1/2 mb-20">
-              <div></div>
+            <div className="w-full mb-20">
+              <div>
+                <FormAuthRegister />
+              </div>
             </div>
           </div>
           <div>
             <div>
               <span>Don't have an account?</span>
-              <Link to={"/auth/register"} className="text-slate-900">
-                <Button variant={"link"}>Sing Up</Button>
+              <Link to={"/auth/login"} className="text-slate-900">
+                <Button variant={"link"}>Sing In</Button>
               </Link>
             </div>
           </div>

@@ -96,7 +96,7 @@ export const FormAuthLoginComponent = () => {
           name="password"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel className="px-2">Email</FormLabel>
+              <FormLabel className="px-2">Password</FormLabel>
               <FormControl>
                 <Input
                   placeholder="password"

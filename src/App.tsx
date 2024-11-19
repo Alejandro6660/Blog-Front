@@ -4,9 +4,10 @@ import { AdminRouter } from "./app/routes/AdminRouter";
 import { AuthRouter } from "./app/routes/AuthRouter";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./store/store";
-import { ESTATUS, onLogin } from "./store/auth/authSlice";
+import { ESTATUS } from "./store/auth/authSlice";
 import { useEffect } from "react";
 import { checkingToken } from "./store/auth/thunks";
+import { Toaster } from "./components/ui/toaster";
 
 function App() {
   const dispatch: AppDispatch = useDispatch();
@@ -22,60 +23,32 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
-      <Routes>
-        {/* <Route
-          path="/"
-          element={
-            status === ESTATUS.AUTHENTICATED && user.rolUser === "ADMIN" ? (
-              <AdminRouter />
-            ) : (
-              <ClientRouter />
-            )
-          }
-        />
-        <Route path="/auth/*" element={<AuthRouter />} />
-        <Route
-          path="/admin/*"
-          element={
-            status !== ESTATUS.AUTHENTICATED && user.rolUser !== "ADMIN" ? (
-              <AuthRouter />
-            ) : status === ESTATUS.AUTHENTICATED && user.rolUser === "ADMIN" ? (
-              <AdminRouter />
-            ) : (
-              <ClientRouter />
-            )
-          }
-        /> */}
+    <Routes>
+      {/* Ruta para usuarios ADMIN */}
+      {status === ESTATUS.AUTHENTICATED && user.rolUser.name === "ADMIN" ? (
+        <>
+          <Route path="/admin/*" element={<AdminRouter />} />
+          <Route path="*" element={<Navigate to="/admin" />} />
+        </>
+      ) : (
+        // Ruta para usuarios CLIENT
+        <>
+          <Route path="/*" element={<ClientRouter />} />
+        </>
+      )}
 
-        {status === ESTATUS.AUTHENTICATED && user.rolUser.name === "ADMIN" ? (
-          <Route path={"/admin/*"} element={<AdminRouter />} />
-        ) : (
-          <Route path={"/*"} element={<ClientRouter />} />
-        )}
-        <Route
-          path={"*"}
-          element={
-            status === ESTATUS.AUTHENTICATED &&
-            user.rolUser.name === "ADMIN" ? (
-              <AdminRouter />
-            ) : (
-              <ClientRouter />
-            )
-          }
-        />
-        <Route
-          path={"/auth/*"}
-          element={
-            status === ESTATUS.AUTHENTICATED ? (
-              <Navigate to={"/"} />
-            ) : (
-              <AuthRouter />
-            )
-          }
-        />
-      </Routes>
-    </>
+      {/* Ruta para autenticación */}
+      <Route
+        path="/auth/*"
+        element={
+          status === ESTATUS.AUTHENTICATED ? (
+            <Navigate to="/" />
+          ) : (
+            <AuthRouter />
+          )
+        }
+      />
+    </Routes>
   );
 }
 

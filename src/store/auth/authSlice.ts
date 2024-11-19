@@ -10,10 +10,11 @@ export enum ESTATUS {
 export interface IUser {
   id: number;
   name: string;
-  lastname: string;
+  lastName: string;
   userName: string;
   email: string;
   rolUser: CatalogoRolUser;
+  imgAvatar: string;
 }
 
 export interface IAuthSlice {
@@ -28,13 +29,14 @@ const initialState: IAuthSlice = {
   user: {
     id: 0,
     name: "",
-    lastname: "",
+    lastName: "",
     userName: "",
     email: "",
     rolUser: {
       id: 0,
       name: "",
     },
+    imgAvatar: "",
   },
   token: "",
   errorMessage: "",
@@ -62,30 +64,37 @@ export const authSlice = createSlice({
       state.user = {
         id: 0,
         name: "",
-        lastname: "",
+        lastName: "",
         userName: "",
         email: "",
         rolUser: {
           id: 0,
           name: "",
         },
+        imgAvatar: "",
       };
     },
 
-    onRegister: (state, action) => {},
+    onRegister: (state, action) => {
+      state.status = ESTATUS.AUTHENTICATED;
+      state.token = action.payload.accessToken;
+      state.user = action.payload.user;
+      state.errorMessage = "";
+    },
 
     onLogout: (state) => {
       state.status = ESTATUS.NOT_AUTHENTICATED;
       state.user = {
         id: 0,
         name: "",
-        lastname: "",
+        lastName: "",
         userName: "",
         email: "",
         rolUser: {
           id: 0,
           name: "",
         },
+        imgAvatar: "",
       };
       state.token = "";
       state.errorMessage = "";
@@ -96,18 +105,24 @@ export const authSlice = createSlice({
       state.user = {
         id: 0,
         name: "",
-        lastname: "",
+        lastName: "",
         userName: "",
         email: "",
         rolUser: {
           id: 0,
           name: "",
         },
+        imgAvatar: "",
       };
       state.errorMessage = undefined;
     },
   },
 });
 
-export const { onCheckingCredentials, onLoginError, onLogin, onLogout } =
-  authSlice.actions;
+export const {
+  onCheckingCredentials,
+  onLoginError,
+  onLogin,
+  onLogout,
+  onRegister,
+} = authSlice.actions;

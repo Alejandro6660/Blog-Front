@@ -10,13 +10,7 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { SidebarMenuButton } from "@/components/ui/sidebar";
-import { Ellipsis } from "lucide-react";
+import { ModalActionComponent } from "../modals/ModalActionComponent";
 
 export const GridUsersComponent = () => {
   const { users, status } = useSelector((state: RootState) => state.Users);
@@ -25,12 +19,7 @@ export const GridUsersComponent = () => {
 
   useEffect(() => {
     dispatch(getAllUsersThunk());
-  }, [dispatch]);
-
-  useEffect(() => {
-    console.log("Users state has changed:", users);
-    // Aquí podrías ejecutar lógica para actualizar la tabla si es necesario
-  }, [users]);
+  }, []);
 
   return (
     <Table>
@@ -78,33 +67,7 @@ export const GridUsersComponent = () => {
                 {user.rolUser?.name}
               </TableCell>
               <TableCell className=" flex justify-center py-1">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <SidebarMenuButton
-                      className="w-[60%] h-6 text-center py-1"
-                      variant={"outline"}
-                    >
-                      <span className="w-full flex justify-center">
-                        <Ellipsis size={18} />
-                      </span>
-                    </SidebarMenuButton>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent
-                    side="bottom"
-                    align="end"
-                    className="w-full"
-                  >
-                    <SidebarMenuButton>
-                      <span>View</span>
-                    </SidebarMenuButton>
-                    <SidebarMenuButton>
-                      <span>Edit</span>
-                    </SidebarMenuButton>
-                    <SidebarMenuButton>
-                      <span>Delete</span>
-                    </SidebarMenuButton>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <ModalActionComponent itemId={user.id} />
               </TableCell>
             </TableRow>
           ))

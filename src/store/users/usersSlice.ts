@@ -1,10 +1,11 @@
+import { GetUserModel } from "@/app/models/users/GetUserModel";
 import { UserModel } from "@/app/models/users/UserModel";
 import { Status } from "@/types/Status.type";
 import { createSlice } from "@reduxjs/toolkit";
 
 type userState = {
   users: UserModel[];
-  user: UserModel | null;
+  user: GetUserModel | null;
   status: Status;
   messageError: string;
 };
@@ -29,11 +30,16 @@ export const usersSlice = createSlice({
       state.status = "success";
       state.users = action.payload;
     },
-
+    getById(state, action) {
+      state.messageError = "";
+      state.status = "success";
+      state.user = action.payload;
+    },
     setIsLoading(state) {
       state.status = "loading";
     },
   },
 });
 
-export const { createUser, getAllUsers, setIsLoading } = usersSlice.actions;
+export const { createUser, getAllUsers, setIsLoading, getById } =
+  usersSlice.actions;

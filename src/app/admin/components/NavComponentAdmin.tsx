@@ -25,10 +25,11 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { AppDispatch } from "@/store/store";
-import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
 import { startLogout } from "@/store/auth/thunks";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const items = [
   {
@@ -59,12 +60,19 @@ const items = [
 ];
 
 export function NavComponentAdmin() {
+  const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
-  const onLogoutBtn = () => {
-    dispatch(startLogout());
+  const { user, status } = useSelector((state: RootState) => state.auth);
+
+  const onLogoutBtn = async () => {
+    await dispatch(startLogout());
+    navigate("/");
   };
-  const getUserById = () => {};
+
+  const onViewUser = async () => {
+    navigate(`../user/${user?.id}`);
+  };
 
   return (
     <Sidebar collapsible="icon" variant="floating">
@@ -102,7 +110,7 @@ export function NavComponentAdmin() {
                 side="top"
                 className="w-[--radix-popper-anchor-width]"
               >
-                <SidebarMenuButton onClick={() => getUserById()}>
+                <SidebarMenuButton onClick={onViewUser}>
                   <User2 />
                   <span>Account</span>
                 </SidebarMenuButton>
